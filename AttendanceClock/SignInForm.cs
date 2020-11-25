@@ -14,7 +14,46 @@ namespace AttendanceClock
     {
         public SignInForm()
         {
+            this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+        }
+
+        private void goToSignUpLinkedLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            SignUpForm signUpForm = new SignUpForm();
+            this.Hide();
+            signUpForm.StartPosition = FormStartPosition.CenterScreen;
+            signUpForm.ShowDialog();
+        }
+
+        private void signInButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userNameTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void passwordLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void userNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void headerLabel_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
