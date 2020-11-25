@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace AttendanceClock
 {
     public partial class SignInForm : Form
@@ -28,7 +29,8 @@ namespace AttendanceClock
 
         private void signInButton_Click(object sender, EventArgs e)
         {
-
+            User user = new User();
+            user.getUserLastName(12);
         }
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
