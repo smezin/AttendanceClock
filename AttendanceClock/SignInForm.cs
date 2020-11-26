@@ -34,7 +34,7 @@ namespace AttendanceClock
             //user.addNewUser("Lmezin", "reef", "mezin", "123123");
             //user.getUserLastName("smezin");
             //user.validatePassword()
-            bool isValid = user.validatePassword("123124", "j6NfaRAsRprdOqzV2Hw039UTIW4V6oaAqbV/Ntame+tWuZGT");
+            bool isValid = user.validatePassword("Lmezin", "123123");
             if (isValid)
                 MessageBox.Show("ok");
             else

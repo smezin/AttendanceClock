@@ -14,7 +14,7 @@ namespace AttendanceClock
     {
         public string name { get; }
 
-        public void getUserHashedPassword (string userName)
+        public string getUserHashedPassword (string userName)
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
             {
@@ -24,10 +24,10 @@ namespace AttendanceClock
 
                     // Add input parameter for the stored procedure and specify what to use as its value.
                     sqlCommand.Parameters.AddWithValue("@userName", userName);
-                  //  sqlCommand.Parameters["@userName"].Value = userName;
+                    //  sqlCommand.Parameters["@userName"].Value = userName;
 
                     // Add the output parameter.
-                    sqlCommand.Parameters.Add(new SqlParameter("@hashedPassword", SqlDbType.NVarChar, 16));
+                    sqlCommand.Parameters.Add(new SqlParameter("@hashedPassword", SqlDbType.NVarChar, 255));
                     sqlCommand.Parameters["@hashedPassword"].Direction = ParameterDirection.Output;
 
                     try
@@ -42,9 +42,9 @@ namespace AttendanceClock
                     }
                     finally
                     {
-                        conn.Close();
-                        MessageBox.Show(sqlCommand.Parameters["@hashedPassword"].Value.ToString());     
+                        conn.Close();                        
                     }
+                    return (sqlCommand.Parameters["@hashedPassword"].Value.ToString());
                 }
             }
         }
@@ -61,13 +61,11 @@ namespace AttendanceClock
                     sqlCommand.Parameters.AddWithValue("@firstName", firstName);
                     sqlCommand.Parameters.AddWithValue("@lastName", lastName);
                     sqlCommand.Parameters.AddWithValue("@hashedPassword", hashedPassword);
-                    MessageBox.Show("1so far so good");                 
-
+                   
                     try
                     {
                         conn.Open();
-                        sqlCommand.ExecuteNonQuery();
-                        MessageBox.Show("2so far so good");
+                        sqlCommand.ExecuteNonQuery();                    
                     }
                     catch
                     {
@@ -92,10 +90,11 @@ namespace AttendanceClock
             string savedPasswordHash = Convert.ToBase64String(hashBytes);
             return savedPasswordHash;
         }
-        public bool validatePassword (string password, string hashed)
+        public bool validatePassword (string userName, string password)
         {
             /* Fetch the stored value */
-            string savedPasswordHash = hashed;// DBContext.GetUser(u => u.UserName == user).Password;
+            string savedPasswordHash = getUserHashedPassword(userName);             // DBContext.GetUser(u => u.UserName == user).Password;
+            MessageBox.Show(savedPasswordHash);
             /* Extract the bytes */
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
             /* Get the salt */
