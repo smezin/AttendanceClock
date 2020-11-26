@@ -38,10 +38,11 @@ namespace AttendanceClock
             this.headerLabel = new System.Windows.Forms.Label();
             this.reEnterPasswordTextBox = new System.Windows.Forms.TextBox();
             this.reEnterPasswordLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.lastNameLabel = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.firstNameLabel = new System.Windows.Forms.Label();
+            this.signUpBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // signUpButton
@@ -55,6 +56,7 @@ namespace AttendanceClock
             this.signUpButton.TabIndex = 13;
             this.signUpButton.Text = "Sign up";
             this.signUpButton.UseVisualStyleBackColor = true;
+            this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
             // 
             // goToSignInLinkedLabel
             // 
@@ -151,16 +153,16 @@ namespace AttendanceClock
             this.reEnterPasswordLabel.TabIndex = 14;
             this.reEnterPasswordLabel.Text = "Re-enter password:";
             // 
-            // textBox1
+            // lastNameTextBox
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lastNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(213, 125);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(165, 26);
-            this.textBox1.TabIndex = 17;
+            this.lastNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastNameTextBox.Location = new System.Drawing.Point(213, 125);
+            this.lastNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lastNameTextBox.Name = "lastNameTextBox";
+            this.lastNameTextBox.Size = new System.Drawing.Size(165, 26);
+            this.lastNameTextBox.TabIndex = 17;
             // 
             // lastNameLabel
             // 
@@ -174,16 +176,16 @@ namespace AttendanceClock
             this.lastNameLabel.TabIndex = 16;
             this.lastNameLabel.Text = "Last name:";
             // 
-            // textBox2
+            // firstNameTextBox
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.firstNameTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(213, 80);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(165, 26);
-            this.textBox2.TabIndex = 19;
+            this.firstNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstNameTextBox.Location = new System.Drawing.Point(213, 80);
+            this.firstNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.firstNameTextBox.Name = "firstNameTextBox";
+            this.firstNameTextBox.Size = new System.Drawing.Size(165, 26);
+            this.firstNameTextBox.TabIndex = 19;
             // 
             // firstNameLabel
             // 
@@ -197,14 +199,19 @@ namespace AttendanceClock
             this.firstNameLabel.TabIndex = 18;
             this.firstNameLabel.Text = "First name:";
             // 
+            // signUpBackgroundWorker
+            // 
+            this.signUpBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.signUpBackgroundWorker_DoWork);
+            this.signUpBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.signUpBackgroundWorker_RunWorkerCompleted);
+            // 
             // SignUpForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(407, 453);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.firstNameTextBox);
             this.Controls.Add(this.firstNameLabel);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.lastNameTextBox);
             this.Controls.Add(this.lastNameLabel);
             this.Controls.Add(this.reEnterPasswordTextBox);
             this.Controls.Add(this.reEnterPasswordLabel);
@@ -233,9 +240,10 @@ namespace AttendanceClock
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.TextBox reEnterPasswordTextBox;
         private System.Windows.Forms.Label reEnterPasswordLabel;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox lastNameTextBox;
         private System.Windows.Forms.Label lastNameLabel;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox firstNameTextBox;
         private System.Windows.Forms.Label firstNameLabel;
+        private System.ComponentModel.BackgroundWorker signUpBackgroundWorker;
     }
 }

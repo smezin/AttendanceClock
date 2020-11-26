@@ -38,16 +38,7 @@ namespace AttendanceClock
             string password = passwordTextBox.Text;
             User user = new User(userName, password);
             bool isValid = user.userName != null;
-            if (isValid)
-            {              
-                e.Result = user;
-                MessageBox.Show("granted");
-            }
-            else
-            {
-                MessageBox.Show("Invalid user name or password", "Can not sign in");
-                e.Result = null;
-            }
+            e.Result = isValid ? user : null;
         }
 
         private void signInBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -55,20 +46,27 @@ namespace AttendanceClock
             signInButton.Enabled = true;
             User user = (User)e.Result;
             //goto next form
-        }
-        private bool isValidUserName (string userName)
-        {
-            return (userName.Length >= 4 && 
-                    userName.Length <= 16 &&
-                    !userName.Contains("(") && 
-                    !userName.Contains(")"));           
-        }
-        private bool isValidPassword (string password)
-        {
-            return (password.Length >= 4 &&
-                    password.Length <= 16 &&
-                    !password.Contains("(") &&
-                    !password.Contains(")"));
+            if (user == null)
+            {
+                MessageBox.Show("Invalid user name or password", "Can not sign in");
+            } 
+            else
+            {
+                if (user.accessLevel == 0)
+                {
+                    this.Hide();
+                    EnterExitForm enterExitForm = new EnterExitForm(user);
+                    enterExitForm.StartPosition = FormStartPosition.CenterScreen;
+                    enterExitForm.ShowDialog();
+                }
+                else if (user.accessLevel == 1)
+                {
+                    this.Hide();
+                    AdminMenuForm adminMenuForm = new AdminMenuForm();
+                    adminMenuForm.StartPosition = FormStartPosition.CenterScreen;
+                    adminMenuForm.ShowDialog();
+                }
+            }
         }
     }
 }
