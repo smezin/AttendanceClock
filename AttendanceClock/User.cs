@@ -11,9 +11,9 @@ namespace AttendanceClock
         public string userName { get; }
         public string userFirstName { get; }
         public string userLastName { get; }
-        public bool isLoggedIn { get; }
+        
         public int accessLevel { get; }
-        public DateTime? lastLogIn { get; }
+       
         public User(string userName, string password)
         {
             if (checkPassword(userName, password))
@@ -29,16 +29,12 @@ namespace AttendanceClock
                         // outputs
                         sqlCommand.Parameters.Add(new SqlParameter("@userUserName", SqlDbType.NVarChar, 16));
                         sqlCommand.Parameters.Add(new SqlParameter("@userFirstName", SqlDbType.NVarChar, 16));
-                        sqlCommand.Parameters.Add(new SqlParameter("@userLastName", SqlDbType.NVarChar, 16));
-                        sqlCommand.Parameters.Add(new SqlParameter("@isLoggedIn", SqlDbType.Bit));
-                        sqlCommand.Parameters.Add(new SqlParameter("@accessLevel", SqlDbType.Int));
-                        sqlCommand.Parameters.Add(new SqlParameter("@lastLogIn", SqlDbType.DateTime));
+                        sqlCommand.Parameters.Add(new SqlParameter("@userLastName", SqlDbType.NVarChar, 16));                    
+                        sqlCommand.Parameters.Add(new SqlParameter("@accessLevel", SqlDbType.Int));                     
                         sqlCommand.Parameters["@userUserName"].Direction = ParameterDirection.Output;
                         sqlCommand.Parameters["@userFirstName"].Direction = ParameterDirection.Output;
-                        sqlCommand.Parameters["@userLastName"].Direction = ParameterDirection.Output;
-                        sqlCommand.Parameters["@isLoggedIn"].Direction = ParameterDirection.Output;
-                        sqlCommand.Parameters["@accessLevel"].Direction = ParameterDirection.Output;
-                        sqlCommand.Parameters["@lastLogIn"].Direction = ParameterDirection.Output;
+                        sqlCommand.Parameters["@userLastName"].Direction = ParameterDirection.Output;                    
+                        sqlCommand.Parameters["@accessLevel"].Direction = ParameterDirection.Output;                     
 
                         try
                         {
@@ -55,11 +51,8 @@ namespace AttendanceClock
                         }
                         this.userName = sqlCommand.Parameters["@userUserName"].Value.ToString();
                         this.userFirstName = sqlCommand.Parameters["@userFirstName"].Value.ToString();
-                        this.userLastName = sqlCommand.Parameters["@userLastName"].Value.ToString();
-                        this.isLoggedIn = (bool)sqlCommand.Parameters["@isLoggedIn"].Value;
+                        this.userLastName = sqlCommand.Parameters["@userLastName"].Value.ToString();      
                         this.accessLevel = Int32.Parse(sqlCommand.Parameters["@accessLevel"].Value.ToString());
-                        if (sqlCommand.Parameters["@lastLogIn"].Value != DBNull.Value)
-                            this.lastLogIn = (DateTime?)sqlCommand.Parameters["@lastLogIn"].Value;
                     }
                 }
             }
@@ -117,8 +110,7 @@ namespace AttendanceClock
                     sqlCommand.Parameters.AddWithValue("@firstName", firstName);
                     sqlCommand.Parameters.AddWithValue("@lastName", lastName);
                     sqlCommand.Parameters.AddWithValue("@hashedPassword", hashedPassword);
-                    sqlCommand.Parameters.AddWithValue("@accessLevel", 0);
-                    sqlCommand.Parameters.AddWithValue("@isLoggedIn", 0);
+                    sqlCommand.Parameters.AddWithValue("@accessLevel", 0);                    
 
                     try
                     {
@@ -169,7 +161,6 @@ namespace AttendanceClock
                 }
             return true;
         }
-
         public void setTimeStamp()
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
@@ -191,6 +182,61 @@ namespace AttendanceClock
                     {
                         conn.Close();
                     }
+                }
+            }
+        }
+        public bool isLoggedIn()
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
+            {
+                using (SqlCommand sqlCommand = new SqlCommand("uspIsLoggedIn", conn))
+                {
+                    int isLogged = 0;
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@userName", this.userName);
+                    try
+                    {
+                        conn.Open();
+                        isLogged = sqlCommand.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("something went wrong");
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    return isLogged == 1;
+                }
+            }
+        }
+        public DateTime? getOpenEntry()
+        {
+            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
+            {
+                using (SqlCommand sqlCommand = new SqlCommand("uspGetOpenEntry", conn))
+                {    
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    sqlCommand.Parameters.AddWithValue("@userName", this.userName);
+                    sqlCommand.Parameters.Add(new SqlParameter("@openEntry", SqlDbType.DateTime));
+                    sqlCommand.Parameters["@openEntry"].Direction = ParameterDirection.Output;
+                    try
+                    {
+                        conn.Open();
+                        sqlCommand.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("something went wrong");
+                    }
+                    finally
+                    {
+                        conn.Close();
+                    }
+                    if (sqlCommand.Parameters["@openEntry"].Value != DBNull.Value)
+                        return (DateTime)sqlCommand.Parameters["@openEntry"].Value;
+                    return null;
                 }
             }
         }

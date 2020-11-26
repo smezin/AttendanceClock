@@ -17,9 +17,9 @@ namespace AttendanceClock
         {
             this.user = user;
             InitializeComponent();
-            if (user.lastLogIn != null)
+            if (user.isLoggedIn())
             {
-                this.currentStatus.Text = $"Entered on: {user.lastLogIn.ToString()}";
+                this.currentStatus.Text = $"Entered on: {user.getOpenEntry()}";
             }
             else
             {
@@ -30,15 +30,17 @@ namespace AttendanceClock
         private void showClockTimer_Tick(object sender, EventArgs e)
         {
             clockLabel.Text = DateTime.Now.ToLongTimeString();
-            TimeSpan loggedFor = (TimeSpan)(DateTime.Now - this.user.lastLogIn);
+            
+            TimeSpan loggedFor = (TimeSpan)(DateTime.Now - this.user.getOpenEntry());
             string days = loggedFor.Days > 0 ? $"{loggedFor.Days} days and " : "";
             loggedDurationLabel.Text = ($"{days}" +
                 $"{loggedFor.Hours}:{loggedFor.Minutes}:{loggedFor.Seconds}");
+            
         }
 
         private void setTimeStampButton_Click(object sender, EventArgs e)
         {
-            string type = this.user.isLoggedIn ? "exit" : "entry";
+            string type = this.user.isLoggedIn() ? "exit" : "entry";
             this.user.setTimeStamp();
         }
     }
