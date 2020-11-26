@@ -36,6 +36,7 @@ namespace AttendanceClock
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.goToSignUpLinkedLabel = new System.Windows.Forms.LinkLabel();
             this.signInButton = new System.Windows.Forms.Button();
+            this.signInBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // headerLabel
@@ -48,7 +49,6 @@ namespace AttendanceClock
             this.headerLabel.TabIndex = 0;
             this.headerLabel.Text = "Welcome";
             this.headerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.headerLabel.Click += new System.EventHandler(this.headerLabel_Click);
             // 
             // userNameLabel
             // 
@@ -61,7 +61,6 @@ namespace AttendanceClock
             this.userNameLabel.Size = new System.Drawing.Size(96, 20);
             this.userNameLabel.TabIndex = 1;
             this.userNameLabel.Text = "User name:";
-            this.userNameLabel.Click += new System.EventHandler(this.userNameLabel_Click);
             // 
             // passwordLabel
             // 
@@ -74,7 +73,6 @@ namespace AttendanceClock
             this.passwordLabel.Size = new System.Drawing.Size(88, 20);
             this.passwordLabel.TabIndex = 2;
             this.passwordLabel.Text = "Password:";
-            this.passwordLabel.Click += new System.EventHandler(this.passwordLabel_Click);
             // 
             // userNameTextBox
             // 
@@ -86,7 +84,6 @@ namespace AttendanceClock
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(165, 26);
             this.userNameTextBox.TabIndex = 3;
-            this.userNameTextBox.TextChanged += new System.EventHandler(this.userNameTextBox_TextChanged);
             // 
             // passwordTextBox
             // 
@@ -98,7 +95,6 @@ namespace AttendanceClock
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(165, 26);
             this.passwordTextBox.TabIndex = 4;
-            this.passwordTextBox.TextChanged += new System.EventHandler(this.passwordTextBox_TextChanged);
             // 
             // goToSignUpLinkedLabel
             // 
@@ -127,6 +123,11 @@ namespace AttendanceClock
             this.signInButton.Text = "Sign in";
             this.signInButton.UseVisualStyleBackColor = true;
             this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
+            // 
+            // signInBackgroundWorker
+            // 
+            this.signInBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.signInBackgroundWorker_DoWork);
+            this.signInBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.signInBackgroundWorker_RunWorkerCompleted);
             // 
             // SignInForm
             // 
@@ -158,6 +159,7 @@ namespace AttendanceClock
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.LinkLabel goToSignUpLinkedLabel;
         private System.Windows.Forms.Button signInButton;
+        private System.ComponentModel.BackgroundWorker signInBackgroundWorker;
     }
 }
 

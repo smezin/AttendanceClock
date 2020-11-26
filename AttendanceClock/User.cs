@@ -12,8 +12,53 @@ namespace AttendanceClock
 {
     class User
     {
-        public string name { get; }
+        public string userName { get; }
+        public string userFirstName { get; }
+        public string userLastName { get; }
+        public User (string userName, string password)
+        {
+            if (checkPassword(userName, password))
+            {
+                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
+                {
+                    using (SqlCommand sqlCommand = new SqlCommand("uspGetUserDetails", conn))
+                    {
+                        sqlCommand.CommandType = CommandType.StoredProcedure;
 
+                        // input
+                        sqlCommand.Parameters.AddWithValue("@userName", userName);
+                        // outputs
+                        sqlCommand.Parameters.Add(new SqlParameter("@userUserName", SqlDbType.NVarChar, 16));
+                        sqlCommand.Parameters.Add(new SqlParameter("@userFirstName", SqlDbType.NVarChar, 16));
+                        sqlCommand.Parameters.Add(new SqlParameter("@userLastName", SqlDbType.NVarChar, 16));
+                        sqlCommand.Parameters["@userUserName"].Direction = ParameterDirection.Output;
+                        sqlCommand.Parameters["@userFirstName"].Direction = ParameterDirection.Output;
+                        sqlCommand.Parameters["@userLastName"].Direction = ParameterDirection.Output;                        
+
+                        try
+                        {
+                            conn.Open();                    
+                            sqlCommand.ExecuteNonQuery();
+                        }
+                        catch
+                        {
+                            MessageBox.Show("something went wrong");
+                        }
+                        finally
+                        {
+                            conn.Close();
+                        }
+                        this.userName = sqlCommand.Parameters["@userUserName"].Value.ToString();
+                        this.userFirstName = sqlCommand.Parameters["@userFirstName"].Value.ToString();
+                        this.userLastName = sqlCommand.Parameters["@userLastName"].Value.ToString();
+                    }
+                }
+            } 
+            else
+            {
+
+            }
+        }
         public string getUserHashedPassword (string userName)
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
@@ -44,7 +89,10 @@ namespace AttendanceClock
                     {
                         conn.Close();                        
                     }
-                    return (sqlCommand.Parameters["@hashedPassword"].Value.ToString());
+                    string hashedPassword = sqlCommand.Parameters["@hashedPassword"].Value != null ? 
+                        sqlCommand.Parameters["@hashedPassword"].Value.ToString() 
+                        : null;
+                    return hashedPassword;
                 }
             }
         }
@@ -90,11 +138,11 @@ namespace AttendanceClock
             string savedPasswordHash = Convert.ToBase64String(hashBytes);
             return savedPasswordHash;
         }
-        public bool validatePassword (string userName, string password)
+        public bool checkPassword (string userName, string password)
         {
             /* Fetch the stored value */
             string savedPasswordHash = getUserHashedPassword(userName);             // DBContext.GetUser(u => u.UserName == user).Password;
-            MessageBox.Show(savedPasswordHash);
+            if (savedPasswordHash.Length == 0) return false;
             /* Extract the bytes */
             byte[] hashBytes = Convert.FromBase64String(savedPasswordHash);
             /* Get the salt */

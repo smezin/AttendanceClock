@@ -27,44 +27,48 @@ namespace AttendanceClock
             signUpForm.StartPosition = FormStartPosition.CenterScreen;
             signUpForm.ShowDialog();
         }
-
         private void signInButton_Click(object sender, EventArgs e)
         {
-            User user = new User();
-            //user.addNewUser("Lmezin", "reef", "mezin", "123123");
-            //user.getUserLastName("smezin");
-            //user.validatePassword()
-            bool isValid = user.validatePassword("Lmezin", "123123");
+            signInButton.Enabled = false;
+            signInBackgroundWorker.RunWorkerAsync();
+        }       
+        private void signInBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {            
+            string userName = userNameTextBox.Text;         
+            string password = passwordTextBox.Text;
+            User user = new User(userName, password);
+            bool isValid = user.userName != null;
             if (isValid)
-                MessageBox.Show("ok");
+            {              
+                e.Result = user;
+                MessageBox.Show("granted");
+            }
             else
-                MessageBox.Show("bad");
-
+            {
+                MessageBox.Show("Invalid user name or password", "Can not sign in");
+                e.Result = null;
+            }
         }
 
-        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        private void signInBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-
+            signInButton.Enabled = true;
+            User user = (User)e.Result;
+            //goto next form
         }
-
-        private void userNameTextBox_TextChanged(object sender, EventArgs e)
+        private bool isValidUserName (string userName)
         {
-
+            return (userName.Length >= 4 && 
+                    userName.Length <= 16 &&
+                    !userName.Contains("(") && 
+                    !userName.Contains(")"));           
         }
-
-        private void passwordLabel_Click(object sender, EventArgs e)
+        private bool isValidPassword (string password)
         {
-
-        }
-
-        private void userNameLabel_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void headerLabel_Click(object sender, EventArgs e)
-        {
-
+            return (password.Length >= 4 &&
+                    password.Length <= 16 &&
+                    !password.Contains("(") &&
+                    !password.Contains(")"));
         }
     }
 }
