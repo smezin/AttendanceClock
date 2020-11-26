@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+    
 
 
 namespace AttendanceClock
@@ -30,7 +31,15 @@ namespace AttendanceClock
         private void signInButton_Click(object sender, EventArgs e)
         {
             User user = new User();
-            user.getUserLastName(12);
+            //user.addNewUser("Lmezin", "reef", "mezin", "123123");
+            //user.getUserLastName("smezin");
+            //user.validatePassword()
+            bool isValid = user.validatePassword("123124", "j6NfaRAsRprdOqzV2Hw039UTIW4V6oaAqbV/Ntame+tWuZGT");
+            if (isValid)
+                MessageBox.Show("ok");
+            else
+                MessageBox.Show("bad");
+
         }
 
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
