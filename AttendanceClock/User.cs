@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AttendanceClock
 {
@@ -99,9 +100,10 @@ namespace AttendanceClock
             }
         }
         public static void addNewUserToDb(string userName, string firstName, string lastName, string password)
-        {
+        {  
             string hashedPassword = User.saltAndHashPassword(password);
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
+
             {
                 using (SqlCommand sqlCommand = new SqlCommand("uspCreateNewUser", conn))
                 {
@@ -182,32 +184,6 @@ namespace AttendanceClock
                     {
                         conn.Close();
                     }
-                }
-            }
-        }
-        public bool isLoggedIn()
-        {
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
-            {
-                using (SqlCommand sqlCommand = new SqlCommand("uspIsLoggedIn", conn))
-                {
-                    int isLogged = 0;
-                    sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@userName", this.userName);
-                    try
-                    {
-                        conn.Open();
-                        isLogged = sqlCommand.ExecuteNonQuery();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("something went wrong");
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
-                    return isLogged == 1;
                 }
             }
         }
