@@ -8,13 +8,15 @@ namespace AttendanceClock
 {
     class Search
     {
-        DateTime from { get; set; }
-        DateTime to { get; set; }
+        DateTime? from { get; set; }
+        DateTime? upTo { get; set; }
         string userName { get; }
 
-        public bool isValidSearch ()
+        public Search (DateTime? from, DateTime? upTo, string userName)
         {
-            return (from != null && to != null && userName != null);
+            this.from = from;
+            this.upTo = upTo;
+            this.userName = userName;
         }
     }
 }
