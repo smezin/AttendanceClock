@@ -27,12 +27,12 @@ namespace AttendanceClock
             if (this.user.getOpenEntry() != null)
             {
                 setTimeStampButton.Text = "Log out";
-                TimeSpan loggedFor = (TimeSpan)(DateTime.Now - this.user.getOpenEntry());
-                string days = loggedFor.Days > 0 ? $"{loggedFor.Days} days and " : "";
-                string hours = loggedFor.Hours < 10 ? $"0{loggedFor.Hours}" : $"{loggedFor.Hours}";
-                string minutes = loggedFor.Minutes < 10 ? $"0{loggedFor.Minutes}" : $"{loggedFor.Minutes}";
-                string seconds = loggedFor.Seconds < 10 ? $"0{loggedFor.Seconds}" : $"{loggedFor.Seconds}";
-                loggedDurationLabel.Text = ($"{days} {hours}:{minutes}:{seconds}");
+                TimeSpan logDurtion = (TimeSpan)(DateTime.Now - this.user.getOpenEntry());
+                string days = logDurtion.Days > 0 ? $"{logDurtion.Days} days and " : "";
+                string hours =  logDurtion.Hours < 10 ? $"0{logDurtion.Hours}" : $"{logDurtion.Hours}";
+                string minutes = logDurtion.Minutes < 10 ? $"0{logDurtion.Minutes}" : $"{logDurtion.Minutes}";
+                string seconds = logDurtion.Seconds < 10 ? $"0{logDurtion.Seconds}" : $"{logDurtion.Seconds}";
+                loggedDurationLabel.Text = ($"{days} {hours}h:{minutes}m:{seconds}s");
             }
             else
             {

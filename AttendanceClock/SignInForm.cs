@@ -63,7 +63,7 @@ namespace AttendanceClock
                 else if (user.accessLevel == 1)
                 {
                     this.Hide();
-                    AdminMenuForm adminMenuForm = new AdminMenuForm();
+                    AdminReportsForm adminMenuForm = new AdminReportsForm();
                     adminMenuForm.StartPosition = FormStartPosition.CenterScreen;
                     adminMenuForm.ShowDialog();
                 }
