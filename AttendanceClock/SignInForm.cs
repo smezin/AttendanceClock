@@ -15,10 +15,12 @@ namespace AttendanceClock
 {
     public partial class SignInForm : Form
     {
-        public SignInForm()
+        public SignInForm(string userName ="", string password="")
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
+            userNameTextBox.Text = userName;
+            passwordTextBox.Text = password;
         }
 
         private void goToSignUpLinkedLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -50,23 +52,13 @@ namespace AttendanceClock
             if (user == null)
             {
                 MessageBox.Show("Invalid user name or password", "Can not sign in");
-            } 
+            }
             else
             {
-                if (user.accessLevel == 0)
-                {
-                    this.Hide();
-                    EnterExitForm enterExitForm = new EnterExitForm(user);
-                    enterExitForm.StartPosition = FormStartPosition.CenterScreen;
-                    enterExitForm.ShowDialog();
-                }
-                else if (user.accessLevel == 1)
-                {
-                    this.Hide();
-                    AdminReportsForm adminMenuForm = new AdminReportsForm();
-                    adminMenuForm.StartPosition = FormStartPosition.CenterScreen;
-                    adminMenuForm.ShowDialog();
-                }
+                this.Hide();
+                EnterExitForm enterExitForm = new EnterExitForm(user);
+                enterExitForm.StartPosition = FormStartPosition.CenterScreen;
+                enterExitForm.ShowDialog();
             }
         }
     }

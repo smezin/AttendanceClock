@@ -13,16 +13,22 @@ namespace AttendanceClock
     public partial class EnterExitForm : Form
     {
         public User user { get; }
+        private string currentSession = "";
         public EnterExitForm(User user)
         {
             this.user = user;
             InitializeComponent();
             headerLabel.Text = $"Hello {user.userFirstName}";
+            if (user.accessLevel == 1)
+                goAdminButton.Enabled = true;
+            else
+                goAdminButton.Enabled = false;
+            
         }
-
         private void showClockTimer_Tick(object sender, EventArgs e)
         {
             clockLabel.Text = DateTime.Now.ToLongTimeString();
+            
             this.currentStatus.Text = $"Entered on: {user.getOpenEntry()}";
             if (this.user.getOpenEntry() != null)
             {
@@ -32,15 +38,15 @@ namespace AttendanceClock
                 string hours =  logDurtion.Hours < 10 ? $"0{logDurtion.Hours}" : $"{logDurtion.Hours}";
                 string minutes = logDurtion.Minutes < 10 ? $"0{logDurtion.Minutes}" : $"{logDurtion.Minutes}";
                 string seconds = logDurtion.Seconds < 10 ? $"0{logDurtion.Seconds}" : $"{logDurtion.Seconds}";
-                loggedDurationLabel.Text = ($"{days} {hours}h:{minutes}m:{seconds}s");
+                this.currentSession = $"{days} {hours}h:{minutes}m:{seconds}s";
+                loggedDurationLabel.Text = this.currentSession;
             }
             else
             {
                 setTimeStampButton.Text = "Log in";
                 this.currentStatus.Text = "Currently not logged in";
-                loggedDurationLabel.Text = "";
-            }
-            
+                loggedDurationLabel.Text = $"you were logged for:\n {this.currentSession}";
+            }          
             
         }
 
@@ -48,6 +54,14 @@ namespace AttendanceClock
         {
             string type = this.user.getOpenEntry() != null ? "exit" : "entry";
             this.user.setTimeStamp();
+        }
+
+        private void goAdminButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AdminReportsForm adminReportsForm = new AdminReportsForm();
+            adminReportsForm.StartPosition = FormStartPosition.CenterScreen;
+            adminReportsForm.ShowDialog();
         }
     }
 }

@@ -37,6 +37,7 @@ namespace AttendanceClock
             this.loggedDurationLabel = new System.Windows.Forms.Label();
             this.setTimeStampButton = new System.Windows.Forms.Button();
             this.headerLabel = new System.Windows.Forms.Label();
+            this.goAdminButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // showClockTimer
@@ -84,10 +85,10 @@ namespace AttendanceClock
             this.loggedDurationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.loggedDurationLabel.Location = new System.Drawing.Point(12, 213);
             this.loggedDurationLabel.Name = "loggedDurationLabel";
-            this.loggedDurationLabel.Size = new System.Drawing.Size(378, 25);
+            this.loggedDurationLabel.Size = new System.Drawing.Size(378, 69);
             this.loggedDurationLabel.TabIndex = 4;
             this.loggedDurationLabel.Text = "checking...";
-            this.loggedDurationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.loggedDurationLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // setTimeStampButton
             // 
@@ -114,11 +115,23 @@ namespace AttendanceClock
             this.headerLabel.Text = "Hello";
             this.headerLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // goAdminButton
+            // 
+            this.goAdminButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.goAdminButton.Location = new System.Drawing.Point(120, 377);
+            this.goAdminButton.Name = "goAdminButton";
+            this.goAdminButton.Size = new System.Drawing.Size(158, 32);
+            this.goAdminButton.TabIndex = 6;
+            this.goAdminButton.Text = "Get reports";
+            this.goAdminButton.UseVisualStyleBackColor = true;
+            this.goAdminButton.Click += new System.EventHandler(this.goAdminButton_Click);
+            // 
             // EnterExitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 443);
+            this.Controls.Add(this.goAdminButton);
             this.Controls.Add(this.headerLabel);
             this.Controls.Add(this.setTimeStampButton);
             this.Controls.Add(this.loggedDurationLabel);
@@ -142,5 +155,6 @@ namespace AttendanceClock
         private System.Windows.Forms.Label loggedDurationLabel;
         private System.Windows.Forms.Button setTimeStampButton;
         private System.Windows.Forms.Label headerLabel;
+        private System.Windows.Forms.Button goAdminButton;
     }
 }

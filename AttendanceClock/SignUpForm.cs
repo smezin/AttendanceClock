@@ -42,7 +42,13 @@ namespace AttendanceClock
                     "All fields are required and has to be 4 to 16 chars long", 
                     "Please check form");
                 return;
+            } else if (!DataValidator.isUserNameFree(userName))
+            {
+                MessageBox.Show("User name is already taken by another user",
+                    "Please try another user name");
+                return;
             }
+
             User.addNewUserToDb(userName, firstName, lastName, password);
             e.Result = userName;
         }
@@ -55,8 +61,14 @@ namespace AttendanceClock
 
         private void signUpBackgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            MessageBox.Show("still need to check it ;)");
             signUpButton.Enabled = true;
+            if (e.Result != null)
+            {
+                this.Hide();
+                SignInForm signInForm = new SignInForm(e.Result.ToString());
+                signInForm.StartPosition = FormStartPosition.CenterScreen;
+                signInForm.ShowDialog();
+            }
         }
     }
 }

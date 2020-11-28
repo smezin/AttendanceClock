@@ -14,7 +14,6 @@ namespace AttendanceClock
                                 userName.Length <= 16 &&
                                 !userName.Contains("(") &&
                                 !userName.Contains(")"));
-            //check if in db
             return validString;
         }
         public static bool isValidPassword (string password, string reTypedPassword)
@@ -29,6 +28,11 @@ namespace AttendanceClock
                     name.Length <= 16 &&
                     !name.Contains("(") &&
                     !name.Contains(")"));
+        }
+        public static bool isUserNameFree (string userName)
+        {
+            List<string> users = Search.getAllUsers();
+            return !users.Contains(userName);
         }
     }
 }
