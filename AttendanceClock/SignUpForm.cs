@@ -15,6 +15,7 @@ namespace AttendanceClock
         public SignUpForm()
         {
             InitializeComponent();
+            
         }
 
         private void goToSignInLinkedLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -32,24 +33,24 @@ namespace AttendanceClock
             string reEnterPassword = reEnterPasswordTextBox.Text;
             string firstName = firstNameTextBox.Text;
             string lastName = lastNameTextBox.Text;
-            bool isValidData = DataValidator.isValidUserName(userName) &&
-                               DataValidator.isValidPassword(password, reEnterPassword) &&
-                               DataValidator.isValidName(firstName) &&
-                               DataValidator.isValidName(lastName);
+            bool isValidData = DataHandler.isValidUserName(userName) &&
+                               DataHandler.isValidPassword(password, reEnterPassword) &&
+                               DataHandler.isValidName(firstName) &&
+                               DataHandler.isValidName(lastName);
             if (!isValidData)
             {
                 MessageBox.Show("Some of the data is invalid. \n " +
-                    "All fields are required and has to be 4 to 16 chars long", 
+                    "All fields are required and has to be 4 to 16 chars long chars and numbers", 
                     "Please check form");
                 return;
-            } else if (!DataValidator.isUserNameFree(userName))
+            } else if (!DataHandler.isUserNameFree(userName))
             {
                 MessageBox.Show("User name is already taken by another user",
                     "Please try another user name");
                 return;
             }
 
-            User.addNewUserToDb(userName, firstName, lastName, password);
+            DbAbstractionLayer.addNewUserToDb(userName, firstName, lastName, password);
             e.Result = userName;
         }
 

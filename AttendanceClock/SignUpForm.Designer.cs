@@ -53,7 +53,7 @@ namespace AttendanceClock
             this.signUpButton.Location = new System.Drawing.Point(122, 339);
             this.signUpButton.Name = "signUpButton";
             this.signUpButton.Size = new System.Drawing.Size(163, 50);
-            this.signUpButton.TabIndex = 5;
+            this.signUpButton.TabIndex = 10;
             this.signUpButton.Text = "Sign up";
             this.signUpButton.UseVisualStyleBackColor = true;
             this.signUpButton.Click += new System.EventHandler(this.signUpButton_Click);
@@ -67,7 +67,7 @@ namespace AttendanceClock
             this.goToSignInLinkedLabel.Location = new System.Drawing.Point(171, 426);
             this.goToSignInLinkedLabel.Name = "goToSignInLinkedLabel";
             this.goToSignInLinkedLabel.Size = new System.Drawing.Size(224, 18);
-            this.goToSignInLinkedLabel.TabIndex = 6;
+            this.goToSignInLinkedLabel.TabIndex = 11;
             this.goToSignInLinkedLabel.TabStop = true;
             this.goToSignInLinkedLabel.Text = "Already have an account? Sign in";
             this.goToSignInLinkedLabel.VisitedLinkColor = System.Drawing.Color.Blue;
@@ -82,7 +82,7 @@ namespace AttendanceClock
             this.passwordTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(165, 26);
-            this.passwordTextBox.TabIndex = 3;
+            this.passwordTextBox.TabIndex = 7;
             // 
             // userNameTextBox
             // 
@@ -93,7 +93,7 @@ namespace AttendanceClock
             this.userNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(165, 26);
-            this.userNameTextBox.TabIndex = 2;
+            this.userNameTextBox.TabIndex = 5;
             // 
             // passwordLabel
             // 
@@ -104,7 +104,7 @@ namespace AttendanceClock
             this.passwordLabel.Location = new System.Drawing.Point(39, 215);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(148, 20);
-            this.passwordLabel.TabIndex = 10;
+            this.passwordLabel.TabIndex = 6;
             this.passwordLabel.Text = "Choose password:";
             // 
             // userNameLabel
@@ -116,7 +116,7 @@ namespace AttendanceClock
             this.userNameLabel.Location = new System.Drawing.Point(39, 170);
             this.userNameLabel.Name = "userNameLabel";
             this.userNameLabel.Size = new System.Drawing.Size(155, 20);
-            this.userNameLabel.TabIndex = 9;
+            this.userNameLabel.TabIndex = 4;
             this.userNameLabel.Text = "Choose user name:";
             // 
             // headerLabel
@@ -139,7 +139,7 @@ namespace AttendanceClock
             this.reEnterPasswordTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reEnterPasswordTextBox.Name = "reEnterPasswordTextBox";
             this.reEnterPasswordTextBox.Size = new System.Drawing.Size(165, 26);
-            this.reEnterPasswordTextBox.TabIndex = 4;
+            this.reEnterPasswordTextBox.TabIndex = 9;
             // 
             // reEnterPasswordLabel
             // 
@@ -150,7 +150,7 @@ namespace AttendanceClock
             this.reEnterPasswordLabel.Location = new System.Drawing.Point(39, 260);
             this.reEnterPasswordLabel.Name = "reEnterPasswordLabel";
             this.reEnterPasswordLabel.Size = new System.Drawing.Size(156, 20);
-            this.reEnterPasswordLabel.TabIndex = 11;
+            this.reEnterPasswordLabel.TabIndex = 8;
             this.reEnterPasswordLabel.Text = "Re-enter password:";
             // 
             // lastNameTextBox
@@ -162,7 +162,7 @@ namespace AttendanceClock
             this.lastNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lastNameTextBox.Name = "lastNameTextBox";
             this.lastNameTextBox.Size = new System.Drawing.Size(165, 26);
-            this.lastNameTextBox.TabIndex = 1;
+            this.lastNameTextBox.TabIndex = 3;
             // 
             // lastNameLabel
             // 
@@ -173,7 +173,7 @@ namespace AttendanceClock
             this.lastNameLabel.Location = new System.Drawing.Point(39, 125);
             this.lastNameLabel.Name = "lastNameLabel";
             this.lastNameLabel.Size = new System.Drawing.Size(93, 20);
-            this.lastNameLabel.TabIndex = 8;
+            this.lastNameLabel.TabIndex = 2;
             this.lastNameLabel.Text = "Last name:";
             // 
             // firstNameTextBox
@@ -185,7 +185,8 @@ namespace AttendanceClock
             this.firstNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.firstNameTextBox.Name = "firstNameTextBox";
             this.firstNameTextBox.Size = new System.Drawing.Size(165, 26);
-            this.firstNameTextBox.TabIndex = 0;
+            this.firstNameTextBox.TabIndex = 1;
+            this.firstNameTextBox.Validated += new System.EventHandler(this.signUpButton_Click);
             // 
             // firstNameLabel
             // 
@@ -196,7 +197,7 @@ namespace AttendanceClock
             this.firstNameLabel.Location = new System.Drawing.Point(39, 80);
             this.firstNameLabel.Name = "firstNameLabel";
             this.firstNameLabel.Size = new System.Drawing.Size(94, 20);
-            this.firstNameLabel.TabIndex = 7;
+            this.firstNameLabel.TabIndex = 0;
             this.firstNameLabel.Text = "First name:";
             // 
             // signUpBackgroundWorker

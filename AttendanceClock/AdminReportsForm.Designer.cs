@@ -181,8 +181,7 @@ namespace AttendanceClock
             this.usersComboBox.Location = new System.Drawing.Point(0, 0);
             this.usersComboBox.Name = "usersComboBox";
             this.usersComboBox.Size = new System.Drawing.Size(132, 24);
-            this.usersComboBox.TabIndex = 12;
-            this.usersComboBox.SelectedIndexChanged += new System.EventHandler(this.usersComboBox_SelectedIndexChanged);
+            this.usersComboBox.TabIndex = 12;          
             // 
             // panel1
             // 

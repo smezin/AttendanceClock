@@ -22,11 +22,11 @@ namespace AttendanceClock
         {
             clockLabel.Text = DateTime.Now.ToLongTimeString();
 
-            currentStatus.Text = $"Entered on: {user.getOpenEntry()}";
-            if (user.getOpenEntry() != null)
+            currentStatus.Text = $"Entered on: {DbAbstractionLayer.getOpenEntry(user.userName)}";
+            if (DbAbstractionLayer.getOpenEntry(user.userName) != null)
             {
                 setTimeStampButton.Text = "Log out";
-                TimeSpan logDurtion = (TimeSpan)(DateTime.Now - user.getOpenEntry());
+                TimeSpan logDurtion = (TimeSpan)(DateTime.Now - DbAbstractionLayer.getOpenEntry(user.userName));
                 string days = logDurtion.Days > 0 ? $"{logDurtion.Days} days and " : "";
                 string hours = logDurtion.Hours < 10 ? $"0{logDurtion.Hours}" : $"{logDurtion.Hours}";
                 string minutes = logDurtion.Minutes < 10 ? $"0{logDurtion.Minutes}" : $"{logDurtion.Minutes}";
@@ -44,8 +44,8 @@ namespace AttendanceClock
 
         private void setTimeStampButton_Click(object sender, EventArgs e)
         {
-            string type = user.getOpenEntry() != null ? "exit" : "entry";
-            user.setTimeStamp();
+            string type = DbAbstractionLayer.getOpenEntry(user.userName) != null ? "exit" : "entry";
+            DbAbstractionLayer.setTimeStamp(user.userName);
         }
 
         private void goAdminButton_Click(object sender, EventArgs e)

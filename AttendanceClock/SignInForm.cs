@@ -76,5 +76,16 @@ namespace AttendanceClock
                 passwordTextBox.Focus();
             }
         }
+
+        private void SignInForm_Load(object sender, EventArgs e)
+        {
+            setTablesBackgroundWorker.RunWorkerAsync();
+        }
+
+        private void setTablesBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            DbAbstractionLayer.setUpUsersTable();
+            DbAbstractionLayer.setUpEntryLogTable();
+        }
     }
 }

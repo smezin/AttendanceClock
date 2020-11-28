@@ -1,34 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data.SqlClient;
-using System.Globalization;
+using System.Windows.Forms;
 
 namespace AttendanceClock
 {
     public partial class AdminReportsForm : Form
     {
-        private SqlDataAdapter dataAdapter = new SqlDataAdapter();
-        private BindingSource bindingSource1 = new BindingSource();
+        //private readonly SqlDataAdapter dataAdapter = new SqlDataAdapter();
+        private readonly BindingSource bindingSource1 = new BindingSource();
         public AdminReportsForm()
         {
             InitializeComponent();
             upToDateTimePicker.MaxDate = DateTime.Now;
             fromDateTimePicker.MaxDate = DateTime.Now;
-            
-            
+
         }
 
         private void AdminReportsForm_Load(object sender, EventArgs e)
         {
             dataGridView1.DataSource = bindingSource1;
-            List<string> users = Search.getAllUsers();
+            List<string> users = DbAbstractionLayer.getAllUserNames();
             users.ForEach(delegate (String user)
             {
                 usersComboBox.Items.Add(user);
@@ -59,21 +51,16 @@ namespace AttendanceClock
                 from = fromDateTimePicker.Value;
             if (!untilTodayCheckBox.Checked)
                 upTo = upToDateTimePicker.Value;
-            Search search = new Search(from, upTo, userName);
+            DbAbstractionLayer search = new DbAbstractionLayer(from, upTo, userName);
             bindingSource1.DataSource = search.searchResult;
-            for (int i = 0; i <= dataGridView1.ColumnCount - 2; i++)            
+            for (int i = 0; i <= dataGridView1.ColumnCount - 2; i++)
                 dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[dataGridView1.ColumnCount-1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-        }
-
-        private void usersComboBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            dataGridView1.Columns[dataGridView1.ColumnCount - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         private void logOutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Hide();
+            Hide();
             SignInForm signInForm = new SignInForm();
             signInForm.StartPosition = FormStartPosition.CenterScreen;
             signInForm.ShowDialog();

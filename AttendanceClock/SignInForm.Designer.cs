@@ -37,6 +37,7 @@ namespace AttendanceClock
             this.goToSignUpLinkedLabel = new System.Windows.Forms.LinkLabel();
             this.signInButton = new System.Windows.Forms.Button();
             this.signInBackgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.setTablesBackgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.SuspendLayout();
             // 
             // headerLabel
@@ -131,6 +132,10 @@ namespace AttendanceClock
             this.signInBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.signInBackgroundWorker_DoWork);
             this.signInBackgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.signInBackgroundWorker_RunWorkerCompleted);
             // 
+            // setTablesBackgroundWorker
+            // 
+            this.setTablesBackgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.setTablesBackgroundWorker_DoWork);
+            // 
             // SignInForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -147,6 +152,7 @@ namespace AttendanceClock
             this.MinimumSize = new System.Drawing.Size(425, 420);
             this.Name = "SignInForm";
             this.Text = "Sign in";
+            this.Load += new System.EventHandler(this.SignInForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,6 +168,7 @@ namespace AttendanceClock
         private System.Windows.Forms.LinkLabel goToSignUpLinkedLabel;
         private System.Windows.Forms.Button signInButton;
         private System.ComponentModel.BackgroundWorker signInBackgroundWorker;
+        private System.ComponentModel.BackgroundWorker setTablesBackgroundWorker;
     }
 }
 
