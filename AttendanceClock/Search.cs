@@ -19,11 +19,22 @@ namespace AttendanceClock
 
         public Search (DateTime? from, DateTime? upTo, string userName)
         {
-            this.from = from ?? DateTime.Parse("1/1/1754"); //sql min date
-            this.upTo = upTo ?? DateTime.MaxValue;  
+            DateTime fromNonNull = from ?? DateTime.Parse("1/1/1754"); //sql min date
+            DateTime upToNonNull = upTo ?? DateTime.MaxValue.AddDays(-1);
+            //normalize from day start to day end
+            fromNonNull = fromNonNull.AddHours(-fromNonNull.Hour);
+            fromNonNull = fromNonNull.AddMinutes(-fromNonNull.Minute);
+            fromNonNull = fromNonNull.AddSeconds(-fromNonNull.Second);
+            upToNonNull = upToNonNull.AddDays(1);
+            upToNonNull = upToNonNull.AddHours(-upToNonNull.Hour);
+            upToNonNull = upToNonNull.AddMinutes(-upToNonNull.Minute);
+            upToNonNull = upToNonNull.AddSeconds(-upToNonNull.Second);
+            //
+            this.from = fromNonNull;
+            this.upTo = upToNonNull;
             this.userName = userName;
             this.searchResult = new DataTable();
-            fillTable(from ?? DateTime.Parse("1/1/1754"), upTo ?? DateTime.MaxValue, userName);
+            fillTable(fromNonNull, upToNonNull, userName);
         }
 
         private void fillTable (DateTime from, DateTime upTo, string userName)

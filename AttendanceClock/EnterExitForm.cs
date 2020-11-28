@@ -45,9 +45,9 @@ namespace AttendanceClock
             {
                 setTimeStampButton.Text = "Log in";
                 this.currentStatus.Text = "Currently not logged in";
-                loggedDurationLabel.Text = $"you were logged for:\n {this.currentSession}";
-            }          
-            
+                loggedDurationLabel.Text = this.currentSession != "" ? $"you were logged for:\n {this.currentSession}" : "";
+            }        
+ 
         }
 
         private void setTimeStampButton_Click(object sender, EventArgs e)
@@ -62,6 +62,14 @@ namespace AttendanceClock
             AdminReportsForm adminReportsForm = new AdminReportsForm();
             adminReportsForm.StartPosition = FormStartPosition.CenterScreen;
             adminReportsForm.ShowDialog();
+        }
+
+        private void logOutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            SignInForm signInForm = new SignInForm(user.userName);
+            signInForm.StartPosition = FormStartPosition.CenterScreen;
+            signInForm.ShowDialog();
         }
     }
 }

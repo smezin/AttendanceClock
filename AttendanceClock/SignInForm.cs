@@ -15,12 +15,11 @@ namespace AttendanceClock
 {
     public partial class SignInForm : Form
     {
-        public SignInForm(string userName ="", string password="")
+        public SignInForm(string userName ="")
         {
             this.StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
-            userNameTextBox.Text = userName;
-            passwordTextBox.Text = password;
+            userNameTextBox.Text = userName;            
         }
 
         private void goToSignUpLinkedLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -59,6 +58,22 @@ namespace AttendanceClock
                 EnterExitForm enterExitForm = new EnterExitForm(user);
                 enterExitForm.StartPosition = FormStartPosition.CenterScreen;
                 enterExitForm.ShowDialog();
+            }
+        }
+
+        private void passwordTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                signInButton_Click(sender, e);
+            }
+        }
+
+        private void userNameTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Return)
+            {
+                passwordTextBox.Focus();
             }
         }
     }

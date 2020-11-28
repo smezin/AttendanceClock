@@ -29,8 +29,6 @@ namespace AttendanceClock
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersNamesLabel = new System.Windows.Forms.Label();
             this.fromLabel = new System.Windows.Forms.Label();
             this.upToLabel = new System.Windows.Forms.Label();
@@ -42,16 +40,11 @@ namespace AttendanceClock
             this.headerLabel = new System.Windows.Forms.Label();
             this.searchButton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.attendanceDB1DataSet = new AttendanceClock.AttendanceDB1DataSet();
-            this.uspSearchBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.uspSearchTableAdapter = new AttendanceClock.AttendanceDB1DataSetTableAdapters.uspSearchTableAdapter();
             this.usersComboBox = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.logOutLinkLabel = new System.Windows.Forms.LinkLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.attendanceDB1DataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uspSearchBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +86,7 @@ namespace AttendanceClock
             this.fromDateTimePicker.Name = "fromDateTimePicker";
             this.fromDateTimePicker.Size = new System.Drawing.Size(200, 24);
             this.fromDateTimePicker.TabIndex = 4;
+            this.fromDateTimePicker.ValueChanged += new System.EventHandler(this.fromDateTimePicker_ValueChanged);
             // 
             // upToDateTimePicker
             // 
@@ -101,6 +95,7 @@ namespace AttendanceClock
             this.upToDateTimePicker.Name = "upToDateTimePicker";
             this.upToDateTimePicker.Size = new System.Drawing.Size(200, 24);
             this.upToDateTimePicker.TabIndex = 5;
+            this.upToDateTimePicker.ValueChanged += new System.EventHandler(this.upToDateTimePicker_ValueChanged);
             // 
             // showAllUsersCheckBox
             // 
@@ -174,16 +169,6 @@ namespace AttendanceClock
             this.dataGridView1.Size = new System.Drawing.Size(858, 251);
             this.dataGridView1.TabIndex = 11;
             // 
-            // attendanceDB1DataSet
-            // 
-            this.attendanceDB1DataSet.DataSetName = "AttendanceDB1DataSet";
-            this.attendanceDB1DataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // uspSearchBindingSource
-            // 
-            this.uspSearchBindingSource.DataMember = "uspSearch";
-            this.uspSearchBindingSource.DataSource = this.attendanceDB1DataSet;
-            // 
             // uspSearchTableAdapter
             // 
             this.uspSearchTableAdapter.ClearBeforeFill = true;
@@ -214,10 +199,10 @@ namespace AttendanceClock
             this.logOutLinkLabel.AutoSize = true;
             this.logOutLinkLabel.Location = new System.Drawing.Point(914, 482);
             this.logOutLinkLabel.Name = "logOutLinkLabel";
-            this.logOutLinkLabel.Size = new System.Drawing.Size(56, 17);
+            this.logOutLinkLabel.Size = new System.Drawing.Size(60, 17);
             this.logOutLinkLabel.TabIndex = 14;
             this.logOutLinkLabel.TabStop = true;
-            this.logOutLinkLabel.Text = "Log out";
+            this.logOutLinkLabel.Text = "Sign out";
             this.logOutLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logOutLinkLabel_LinkClicked);
             // 
             // AdminReportsForm
@@ -242,10 +227,7 @@ namespace AttendanceClock
             this.Name = "AdminReportsForm";
             this.Text = "Admin reports";
             this.Load += new System.EventHandler(this.AdminReportsForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.attendanceDB1DataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.uspSearchBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -253,7 +235,6 @@ namespace AttendanceClock
         }
 
         #endregion
-        private System.Windows.Forms.BindingSource usersBindingSource;      
         private System.Windows.Forms.Label usersNamesLabel;
         private System.Windows.Forms.Label fromLabel;
         private System.Windows.Forms.Label upToLabel;
@@ -265,8 +246,6 @@ namespace AttendanceClock
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.Button searchButton;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.BindingSource uspSearchBindingSource;
-        private AttendanceDB1DataSet attendanceDB1DataSet;
         private AttendanceDB1DataSetTableAdapters.uspSearchTableAdapter uspSearchTableAdapter;
         private System.Windows.Forms.ComboBox usersComboBox;
         private System.Windows.Forms.Panel panel1;

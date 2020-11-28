@@ -38,6 +38,7 @@ namespace AttendanceClock
             this.setTimeStampButton = new System.Windows.Forms.Button();
             this.headerLabel = new System.Windows.Forms.Label();
             this.goAdminButton = new System.Windows.Forms.Button();
+            this.logOutLinkLabel = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // showClockTimer
@@ -126,11 +127,23 @@ namespace AttendanceClock
             this.goAdminButton.UseVisualStyleBackColor = true;
             this.goAdminButton.Click += new System.EventHandler(this.goAdminButton_Click);
             // 
+            // logOutLinkLabel
+            // 
+            this.logOutLinkLabel.AutoSize = true;
+            this.logOutLinkLabel.Location = new System.Drawing.Point(334, 417);
+            this.logOutLinkLabel.Name = "logOutLinkLabel";
+            this.logOutLinkLabel.Size = new System.Drawing.Size(60, 17);
+            this.logOutLinkLabel.TabIndex = 7;
+            this.logOutLinkLabel.TabStop = true;
+            this.logOutLinkLabel.Text = "Sign out";
+            this.logOutLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logOutLinkLabel_LinkClicked);
+            // 
             // EnterExitForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(402, 443);
+            this.Controls.Add(this.logOutLinkLabel);
             this.Controls.Add(this.goAdminButton);
             this.Controls.Add(this.headerLabel);
             this.Controls.Add(this.setTimeStampButton);
@@ -156,5 +169,6 @@ namespace AttendanceClock
         private System.Windows.Forms.Button setTimeStampButton;
         private System.Windows.Forms.Label headerLabel;
         private System.Windows.Forms.Button goAdminButton;
+        private System.Windows.Forms.LinkLabel logOutLinkLabel;
     }
 }

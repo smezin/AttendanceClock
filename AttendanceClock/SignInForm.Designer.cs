@@ -71,7 +71,7 @@ namespace AttendanceClock
             this.passwordLabel.Location = new System.Drawing.Point(41, 130);
             this.passwordLabel.Name = "passwordLabel";
             this.passwordLabel.Size = new System.Drawing.Size(88, 20);
-            this.passwordLabel.TabIndex = 2;
+            this.passwordLabel.TabIndex = 3;
             this.passwordLabel.Text = "Password:";
             // 
             // userNameTextBox
@@ -83,7 +83,8 @@ namespace AttendanceClock
             this.userNameTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.userNameTextBox.Name = "userNameTextBox";
             this.userNameTextBox.Size = new System.Drawing.Size(165, 26);
-            this.userNameTextBox.TabIndex = 3;
+            this.userNameTextBox.TabIndex = 2;
+            this.userNameTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.userNameTextBox_KeyPress);
             // 
             // passwordTextBox
             // 
@@ -95,6 +96,7 @@ namespace AttendanceClock
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(165, 26);
             this.passwordTextBox.TabIndex = 4;
+            this.passwordTextBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.passwordTextBox_KeyPress);
             // 
             // goToSignUpLinkedLabel
             // 
@@ -105,7 +107,7 @@ namespace AttendanceClock
             this.goToSignUpLinkedLabel.Location = new System.Drawing.Point(260, 346);
             this.goToSignUpLinkedLabel.Name = "goToSignUpLinkedLabel";
             this.goToSignUpLinkedLabel.Size = new System.Drawing.Size(135, 18);
-            this.goToSignUpLinkedLabel.TabIndex = 5;
+            this.goToSignUpLinkedLabel.TabIndex = 6;
             this.goToSignUpLinkedLabel.TabStop = true;
             this.goToSignUpLinkedLabel.Text = "New user? Sign Up";
             this.goToSignUpLinkedLabel.VisitedLinkColor = System.Drawing.Color.Blue;
@@ -119,7 +121,7 @@ namespace AttendanceClock
             this.signInButton.Location = new System.Drawing.Point(125, 226);
             this.signInButton.Name = "signInButton";
             this.signInButton.Size = new System.Drawing.Size(163, 50);
-            this.signInButton.TabIndex = 6;
+            this.signInButton.TabIndex = 5;
             this.signInButton.Text = "Sign in";
             this.signInButton.UseVisualStyleBackColor = true;
             this.signInButton.Click += new System.EventHandler(this.signInButton_Click);

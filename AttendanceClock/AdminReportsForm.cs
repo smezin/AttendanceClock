@@ -19,6 +19,10 @@ namespace AttendanceClock
         public AdminReportsForm()
         {
             InitializeComponent();
+            upToDateTimePicker.MaxDate = DateTime.Now;
+            fromDateTimePicker.MaxDate = DateTime.Now;
+            
+            
         }
 
         private void AdminReportsForm_Load(object sender, EventArgs e)
@@ -57,12 +61,9 @@ namespace AttendanceClock
                 upTo = upToDateTimePicker.Value;
             Search search = new Search(from, upTo, userName);
             bindingSource1.DataSource = search.searchResult;
-         //      dataGridView1.AutoResizeColumns(
-         //        DataGridViewAutoSizeColumnsMode.AllCellsExceptHeader);
-            dataGridView1.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-            dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            for (int i = 0; i <= dataGridView1.ColumnCount - 2; i++)            
+                dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+            dataGridView1.Columns[dataGridView1.ColumnCount-1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
 
         private void usersComboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -76,6 +77,16 @@ namespace AttendanceClock
             SignInForm signInForm = new SignInForm();
             signInForm.StartPosition = FormStartPosition.CenterScreen;
             signInForm.ShowDialog();
+        }
+
+        private void fromDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            upToDateTimePicker.MinDate = fromDateTimePicker.Value;
+        }
+
+        private void upToDateTimePicker_ValueChanged(object sender, EventArgs e)
+        {
+            fromDateTimePicker.MaxDate = upToDateTimePicker.Value;
         }
     }
 }
