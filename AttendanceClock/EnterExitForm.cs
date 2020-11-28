@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AttendanceClock
@@ -23,42 +16,41 @@ namespace AttendanceClock
                 goAdminButton.Enabled = true;
             else
                 goAdminButton.Enabled = false;
-            
+
         }
         private void showClockTimer_Tick(object sender, EventArgs e)
         {
             clockLabel.Text = DateTime.Now.ToLongTimeString();
-            
-            this.currentStatus.Text = $"Entered on: {user.getOpenEntry()}";
-            if (this.user.getOpenEntry() != null)
+
+            currentStatus.Text = $"Entered on: {user.getOpenEntry()}";
+            if (user.getOpenEntry() != null)
             {
                 setTimeStampButton.Text = "Log out";
-                TimeSpan logDurtion = (TimeSpan)(DateTime.Now - this.user.getOpenEntry());
+                TimeSpan logDurtion = (TimeSpan)(DateTime.Now - user.getOpenEntry());
                 string days = logDurtion.Days > 0 ? $"{logDurtion.Days} days and " : "";
-                string hours =  logDurtion.Hours < 10 ? $"0{logDurtion.Hours}" : $"{logDurtion.Hours}";
+                string hours = logDurtion.Hours < 10 ? $"0{logDurtion.Hours}" : $"{logDurtion.Hours}";
                 string minutes = logDurtion.Minutes < 10 ? $"0{logDurtion.Minutes}" : $"{logDurtion.Minutes}";
                 string seconds = logDurtion.Seconds < 10 ? $"0{logDurtion.Seconds}" : $"{logDurtion.Seconds}";
-                this.currentSession = $"{days} {hours}h:{minutes}m:{seconds}s";
-                loggedDurationLabel.Text = this.currentSession;
+                currentSession = $"{days} {hours}h:{minutes}m:{seconds}s";
+                loggedDurationLabel.Text = currentSession;
             }
             else
             {
                 setTimeStampButton.Text = "Log in";
-                this.currentStatus.Text = "Currently not logged in";
-                loggedDurationLabel.Text = this.currentSession != "" ? $"you were logged for:\n {this.currentSession}" : "";
-            }        
- 
+                currentStatus.Text = "Currently not logged in";
+                loggedDurationLabel.Text = currentSession != "" ? $"you were logged for:\n {currentSession}" : "";
+            }
         }
 
         private void setTimeStampButton_Click(object sender, EventArgs e)
         {
-            string type = this.user.getOpenEntry() != null ? "exit" : "entry";
-            this.user.setTimeStamp();
+            string type = user.getOpenEntry() != null ? "exit" : "entry";
+            user.setTimeStamp();
         }
 
         private void goAdminButton_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             AdminReportsForm adminReportsForm = new AdminReportsForm();
             adminReportsForm.StartPosition = FormStartPosition.CenterScreen;
             adminReportsForm.ShowDialog();
@@ -66,7 +58,7 @@ namespace AttendanceClock
 
         private void logOutLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            this.Hide();
+            Hide();
             SignInForm signInForm = new SignInForm(user.userName);
             signInForm.StartPosition = FormStartPosition.CenterScreen;
             signInForm.ShowDialog();

@@ -3,7 +3,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace AttendanceClock
 {
@@ -12,9 +11,9 @@ namespace AttendanceClock
         public string userName { get; }
         public string userFirstName { get; }
         public string userLastName { get; }
-        
+
         public int accessLevel { get; }
-       
+
         public User(string userName, string password)
         {
             if (checkPassword(userName, password))
@@ -30,12 +29,12 @@ namespace AttendanceClock
                         // outputs
                         sqlCommand.Parameters.Add(new SqlParameter("@userUserName", SqlDbType.NVarChar, 16));
                         sqlCommand.Parameters.Add(new SqlParameter("@userFirstName", SqlDbType.NVarChar, 16));
-                        sqlCommand.Parameters.Add(new SqlParameter("@userLastName", SqlDbType.NVarChar, 16));                    
-                        sqlCommand.Parameters.Add(new SqlParameter("@accessLevel", SqlDbType.Int));                     
+                        sqlCommand.Parameters.Add(new SqlParameter("@userLastName", SqlDbType.NVarChar, 16));
+                        sqlCommand.Parameters.Add(new SqlParameter("@accessLevel", SqlDbType.Int));
                         sqlCommand.Parameters["@userUserName"].Direction = ParameterDirection.Output;
                         sqlCommand.Parameters["@userFirstName"].Direction = ParameterDirection.Output;
-                        sqlCommand.Parameters["@userLastName"].Direction = ParameterDirection.Output;                    
-                        sqlCommand.Parameters["@accessLevel"].Direction = ParameterDirection.Output;                     
+                        sqlCommand.Parameters["@userLastName"].Direction = ParameterDirection.Output;
+                        sqlCommand.Parameters["@accessLevel"].Direction = ParameterDirection.Output;
 
                         try
                         {
@@ -51,9 +50,9 @@ namespace AttendanceClock
                             conn.Close();
                         }
                         this.userName = sqlCommand.Parameters["@userUserName"].Value.ToString();
-                        this.userFirstName = sqlCommand.Parameters["@userFirstName"].Value.ToString();
-                        this.userLastName = sqlCommand.Parameters["@userLastName"].Value.ToString();      
-                        this.accessLevel = Int32.Parse(sqlCommand.Parameters["@accessLevel"].Value.ToString());
+                        userFirstName = sqlCommand.Parameters["@userFirstName"].Value.ToString();
+                        userLastName = sqlCommand.Parameters["@userLastName"].Value.ToString();
+                        accessLevel = Int32.Parse(sqlCommand.Parameters["@accessLevel"].Value.ToString());
                     }
                 }
             }
@@ -100,19 +99,19 @@ namespace AttendanceClock
             }
         }
         public static void addNewUserToDb(string userName, string firstName, string lastName, string password)
-        {  
+        {
             string hashedPassword = User.saltAndHashPassword(password);
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
 
             {
                 using (SqlCommand sqlCommand = new SqlCommand("uspCreateNewUser", conn))
                 {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;                 
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.Parameters.AddWithValue("@userName", userName);
                     sqlCommand.Parameters.AddWithValue("@firstName", firstName);
                     sqlCommand.Parameters.AddWithValue("@lastName", lastName);
                     sqlCommand.Parameters.AddWithValue("@hashedPassword", hashedPassword);
-                    sqlCommand.Parameters.AddWithValue("@accessLevel", 0);                    
+                    sqlCommand.Parameters.AddWithValue("@accessLevel", 0);
 
                     try
                     {
@@ -170,7 +169,7 @@ namespace AttendanceClock
                 using (SqlCommand sqlCommand = new SqlCommand("uspLogTime", conn))
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@userName", this.userName);              
+                    sqlCommand.Parameters.AddWithValue("@userName", userName);
                     try
                     {
                         conn.Open();
@@ -192,9 +191,9 @@ namespace AttendanceClock
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
             {
                 using (SqlCommand sqlCommand = new SqlCommand("uspGetOpenEntry", conn))
-                {    
+                {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
-                    sqlCommand.Parameters.AddWithValue("@userName", this.userName);
+                    sqlCommand.Parameters.AddWithValue("@userName", userName);
                     sqlCommand.Parameters.Add(new SqlParameter("@openEntry", SqlDbType.DateTime));
                     sqlCommand.Parameters["@openEntry"].Direction = ParameterDirection.Output;
                     try

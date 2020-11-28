@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace AttendanceClock
 {
@@ -17,7 +14,7 @@ namespace AttendanceClock
         string userName { get; }
         public DataTable searchResult { get; }
 
-        public Search (DateTime? from, DateTime? upTo, string userName)
+        public Search(DateTime? from, DateTime? upTo, string userName)
         {
             DateTime fromNonNull = from ?? DateTime.Parse("1/1/1754"); //sql min date
             DateTime upToNonNull = upTo ?? DateTime.MaxValue.AddDays(-1);
@@ -33,11 +30,11 @@ namespace AttendanceClock
             this.from = fromNonNull;
             this.upTo = upToNonNull;
             this.userName = userName;
-            this.searchResult = new DataTable();
+            searchResult = new DataTable();
             fillTable(fromNonNull, upToNonNull, userName);
         }
 
-        private void fillTable (DateTime from, DateTime upTo, string userName)
+        private void fillTable(DateTime from, DateTime upTo, string userName)
         {
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
             {
@@ -56,7 +53,7 @@ namespace AttendanceClock
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@userName", userName);
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@entryTime", from);
                     dataAdapter.SelectCommand.Parameters.AddWithValue("@exitTime", upTo);
-                    dataAdapter.Fill(this.searchResult);
+                    dataAdapter.Fill(searchResult);
                 }
                 catch (SqlException)
                 {
@@ -64,14 +61,14 @@ namespace AttendanceClock
                 }
             }
         }
-        public static List<string> getAllUsers ()
+        public static List<string> getAllUsers()
         {
             List<string> users = new List<string>();
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connString))
             {
                 using (SqlCommand sqlCommand = new SqlCommand("uspGetAllUsers", conn))
                 {
-                    sqlCommand.CommandType = CommandType.StoredProcedure;                   
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
                     try
                     {
                         conn.Open();
