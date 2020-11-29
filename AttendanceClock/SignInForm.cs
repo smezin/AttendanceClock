@@ -1,31 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Diagnostics;
-    
-
 
 namespace AttendanceClock
 {
     public partial class SignInForm : Form
     {
-        public SignInForm(string userName ="")
+        public SignInForm(string userName = "")
         {
-            this.StartPosition = FormStartPosition.CenterScreen;
+            StartPosition = FormStartPosition.CenterScreen;
             InitializeComponent();
-            userNameTextBox.Text = userName;            
+            userNameTextBox.Text = userName;
         }
 
         private void goToSignUpLinkedLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             SignUpForm signUpForm = new SignUpForm();
-            this.Hide();
+            Hide();
             signUpForm.StartPosition = FormStartPosition.CenterScreen;
             signUpForm.ShowDialog();
         }
@@ -33,10 +24,10 @@ namespace AttendanceClock
         {
             signInButton.Enabled = false;
             signInBackgroundWorker.RunWorkerAsync();
-        }       
+        }
         private void signInBackgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {            
-            string userName = userNameTextBox.Text;         
+        {
+            string userName = userNameTextBox.Text;
             string password = passwordTextBox.Text;
             User user = new User(userName, password);
             bool isValid = user.userName != null;
@@ -54,7 +45,7 @@ namespace AttendanceClock
             }
             else
             {
-                this.Hide();
+                Hide();
                 EnterExitForm enterExitForm = new EnterExitForm(user);
                 enterExitForm.StartPosition = FormStartPosition.CenterScreen;
                 enterExitForm.ShowDialog();
